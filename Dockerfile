@@ -2,10 +2,10 @@
 WORKDIR /src
 
 COPY StudentPortal.csproj ./
-RUN dotnet restore "StudentPortal.csproj"
+RUN dotnet restore "Studentportal.csproj"
 
 COPY . .
-RUN dotnet publish "StudentPortal.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Studentportal.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
@@ -14,4 +14,4 @@ COPY --from=build /app/publish .
 
 ENV ASPNETCORE_URLS=http://+:10000
 
-ENTRYPOINT ["dotnet", "StudentPortal.dll"]
+ENTRYPOINT ["dotnet", "Studentportal.dll"]
