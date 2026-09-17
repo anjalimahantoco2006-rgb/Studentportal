@@ -1,0 +1,278 @@
+﻿@model StudentPortal.Models.StudentLoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Portal</title>
+
+    <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            body {
+                min-height: 100vh;
+                background: #eef5f7;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .container {
+                width: 850px;
+                min-height: 520px;
+                background: white;
+                display: flex;
+                border-radius: 18px;
+                overflow: hidden;
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+            }
+
+            .welcome {
+                width: 42%;
+                background: linear-gradient(145deg, #087f8c, #075985);
+                color: white;
+                padding: 60px 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .welcome h1 {
+                font-size: 34px;
+                margin-bottom: 18px;
+            }
+
+            .welcome p {
+                line-height: 1.7;
+                font-size: 15px;
+            }
+
+            .form-section {
+                width: 58%;
+                padding: 45px;
+            }
+
+            .form-section h2 {
+                color: #164e63;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                color: #777;
+                margin-bottom: 25px;
+                font-size: 14px;
+            }
+
+            .field {
+                margin-bottom: 17px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 7px;
+                font-size: 14px;
+                color: #333;
+                font-weight: bold;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccd6da;
+                border-radius: 8px;
+                outline: none;
+                font-size: 14px;
+            }
+
+            input:focus,
+            select:focus {
+                border-color: #087f8c;
+            }
+
+            .password-box {
+                position: relative;
+            }
+
+            .password-box input {
+                padding-right: 45px;
+            }
+
+            .eye {
+                position: absolute;
+                right: 13px;
+                top: 11px;
+                cursor: pointer;
+                color: #666;
+            }
+
+            .login-btn {
+                width: 100%;
+                padding: 13px;
+                border: none;
+                border-radius: 8px;
+                background: #087f8c;
+                color: white;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 5px;
+            }
+
+            .login-btn:hover {
+                background: #075985;
+            }
+
+            .message {
+                margin-top: 15px;
+                text-align: center;
+                color: #087f8c;
+                font-weight: bold;
+            }
+
+            .forgot {
+                display: block;
+                text-align: right;
+                margin-top: 10px;
+                color: #087f8c;
+                text-decoration: none;
+                font-size: 13px;
+                cursor: pointer;
+            }
+
+            @@media (max-width: 750px) {
+                .container {
+                    width: 94%;
+                }
+
+                .welcome {
+                    display: none;
+                }
+
+                .form-section {
+                    width: 100%;
+                }
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="welcome">
+            <h1>Welcome!</h1>
+            <p>
+                Access your student portal to manage your academic information
+                and continue your learning journey.
+            </p>
+        </div>
+
+        <div class="form-section">
+
+            <h2>Student Login</h2>
+            <p class="subtitle">Enter your details to continue</p>
+
+            <form method="post">
+
+                <div class="field">
+                    <label>Student ID</label>
+                    <input type="text"
+                           name="StudentId"
+                           value="@Model?.StudentId"
+                           placeholder="Enter student ID" />
+                </div>
+
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email"
+                           name="Email"
+                           value="@Model?.Email"
+                           placeholder="Enter email address" />
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+
+                    <div class="password-box">
+                        <input type="password"
+                               id="password"
+                               name="Password"
+                               placeholder="Enter password" />
+
+                        <span class="eye" onclick="togglePassword()">👁</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Course</label>
+
+                    <select name="Course">
+                        <option value="">Select course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BBA">BBA</option>
+                        <option value="BSc">B.Sc</option>
+                        <option value="BCom">B.Com</option>
+                        <option value="BA">B.A</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Semester</label>
+
+                    <select name="Semester">
+                        <option value="">Select semester</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    SIGN IN
+                </button>
+
+                <a class="forgot"
+                   onclick="alert('Please contact the college administration to reset your password.')">
+                    Forgot Password?
+                </a>
+
+            </form>
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="message">
+                    @ViewBag.Message
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <script>
+            function togglePassword() {
+                var password = document.getElementById("password");
+
+                if (password.type === "password") {
+                    password.type = "text";
+                } else {
+                    password.type = "password";
+                }
+            }
+    </script>
+
+</body>
+</html>
