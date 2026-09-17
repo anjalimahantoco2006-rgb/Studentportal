@@ -1,7 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY StudentPortal.csproj ./
+COPY Studentportal.csproj ./
 RUN dotnet restore "Studentportal.csproj"
 
 COPY . .
